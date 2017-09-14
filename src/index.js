@@ -50,8 +50,6 @@ module.exports = function multiply(first, second) {
     } else {
       let k = result.length - 1;
       let d = arr.length - 1;
-      // console.log(k, d);
-
 
       if (d > k) {
         for (k; k >= 0; k--) {
@@ -70,18 +68,22 @@ module.exports = function multiply(first, second) {
             result.unshift(arr[d] + pr);
             pr = 0;
             d--;
+          } else if((arr[d] + pr) >= 10 && d == 1){
+            result.unshift((arr[d] + pr)%10);
+            result.unshift(arr[d-1] + 1);
+            d = -1;
           } else {
-            result.unshift((arr[d] + pr) % 10);
-            result.unshift(Math.floor((arr[d] + pr) / 10));
+            result.unshift((arr[d] + pr)%10);
+            result.unshift(Math.floor((arr[d] + pr)/10));
             d--;
           }
 
-
         }
+
         pp = result.pop();
         finalRes.unshift(pp);
         pr = 0;
-        // console.log('d in d>k', d);
+
       } else {
         for (k; k >= 0; k--) {
           res = result[k] + arr[d] + pr;
@@ -97,20 +99,15 @@ module.exports = function multiply(first, second) {
             }
           }
           d--;
-          //вот ту ошибка с d и с k какая-то
         }
         pp = result.pop();
         finalRes.unshift(pp);
         pr = 0;
       }
-
     }
-
   }
 
   finalRes = result.concat(finalRes);
-
   return finalRes.join('');
 
 }
-
